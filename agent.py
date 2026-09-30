@@ -13,6 +13,8 @@ Build and test your three tools in `tools.py` first. Then come here.
     python agent.py          runs both example paths below
 """
 
+from itertools import count
+
 import config
 import trace
 from tools import search_listings, suggest_outfit, create_fit_card
@@ -107,10 +109,41 @@ def run_agent(query: str, wardrobe: dict) -> dict:
     """
     session = new_session(query, wardrobe)
 
-    # TODO: delete these two lines and build the loop.
-    session["error"] = "The planning loop isn't built yet — see the TODO in agent.py."
-    return session
+    #2
+    if count > config.MAX_ITERATIONS:
+        raise RuntimeError(
+            f"The loop ran {count} times, past MAX_ITERATIONS "
+            f"({config.MAX_ITERATIONS}) in config.py.\n"
+            f"That almost always means a branch isn't ending. Print the value "
+            f"your branch checks, on the line before the `if`."
+        )
 
+
+    #3
+    session["parsed"] = {
+        "description": "vintage graphic tee",
+        "size": "M",
+        "max_price": 30,
+    }
+
+    #4
+    session["fit_card"] = suggest_outfit()
+
+    #5
+    session["selected_item"] = session["search_results"][0] 
+
+    #6
+    session["outfit_suggestion"] = suggest_outfit(session["selected_item"], session["wardrobe"])
+
+    #7
+    session["fit_card"] = create_fit_card(session["outfit_suggestion"], session["selected_item"])
+
+    # TODO: delete these two lines and build the loop.
+    # session["error"] = "The planning loop isn't built yet — see the TODO in agent.py."
+
+
+
+    return session
 
 # ── running it directly ───────────────────────────────────────────────────────
 
