@@ -39,9 +39,7 @@
 
 ## What This Does
 
-<!-- Three or four sentences: what a user asks for, and what they get back. -->
-
-
+FitFindr is a thrift-shopping agent. A user types what they want in plain language — for example `'vintage graphic tee under $30, size M'` — and the agent pulls out the item description, size, and price limit, searches the listings data, and picks the best match. It then suggests one or two outfits built from pieces in the user's wardrobe (or general styling advice if the wardrobe is empty) and writes a short caption the user could actually post. If nothing matches, the agent stops before the outfit step and tells the user exactly what to change, such as raising the price limit or dropping the size filter.
 
 ---
 
@@ -80,7 +78,7 @@
 ---
 
 ## Planning Loop
-
+A bare dollar amount with no keyword in front (e.g. "$30") is also treated as the price limit.
 **Branch rule:** If `search_listings` returns an empty list, the loop puts a message in `session["error"]` that repeats what was searched (description, size, max price) and names what to change (raise the price limit, drop the size, or use broader words), then returns the session without calling `suggest_outfit` or `create_fit_card`. Otherwise, it puts the first (highest-scoring) result in `session["selected_item"]` and continues to `suggest_outfit`, then `create_fit_card`.
 
 **Where it lives:** `agent.py::run_agent`
@@ -217,7 +215,17 @@ that produced it:
 **Diagnoses**
 
 
+**Moment 1**
 
+- *What I asked for:* I asked Claude to write my Tool Inventory spec for `search_listings`, including the size-matching rule.
+- *What came back:* A rule that split sizes on `/`, spaces, and commas and compared whole tokens, based on size formats it guessed thrift data would have ("M", "S/M", "US 9").
+- *What I changed:* I ran `python app.py listings --full -n 6` and pasted the real records back. The actual sizes included `XL (oversized)`, `W30 L30`, and `W28`, which the guessed rule only handled by luck. I changed the rule to split on any non-alphanumeric character (so parentheses separate tokens) and added a mapping from word sizes to letters (small → s, medium → m, large → l, extra large → xl), so a query like "size medium" doesn't silently match nothing.
+
+**Moment 2**
+
+- *What I asked for:* I asked Claude for a full implementation of the three tools in `tools.py`, then ran the seven test commands it gave me.
+- *What came back:* Every test printed an empty result — including `create_fit_card('', ...)`, which should have returned a hardcoded message without calling the model.
+- *What I changed:* Because that hardcoded message couldn't come back empty, Claude pointed out the stubs must still be running. I ran `python -c "import tools; print(tools.__file__); print('STOPWORDS' in open(tools.__file__).read())"`, which printed `False` — the repo's `tools.py` had never been replaced. I replaced the whole file, confirmed the check printed `True`, and reran the tests, which then returned real listings and model output.
 ---
 
 ## Loop Trace
