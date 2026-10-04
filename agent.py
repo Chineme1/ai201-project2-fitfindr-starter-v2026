@@ -141,8 +141,6 @@ def run_agent(query: str, wardrobe: dict) -> dict:
     # TODO: delete these two lines and build the loop.
     # session["error"] = "The planning loop isn't built yet — see the TODO in agent.py."
 
-
-
     return session
 
 # ── running it directly ───────────────────────────────────────────────────────
