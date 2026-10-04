@@ -93,16 +93,25 @@
 
 <!-- Two things go here.
 
-     1. One FULL query and its output, pasted as text.
-     2. Your three per-tool terminal tests — the command and what it printed. -->
-
 **One full query**
 
 ```
-$ python app.py ask '...'
+  python app.py ask 'vintage graphic tee under $30, size M'
+
+
+$ Found:    Y2K Baby Tee — Butterfly Print — $18.0 on depop
+
+  Outfit:   Hey friend, you totally need to grab this baby tee—at $18 in excellent condition, it's an absolute steal! For the ultimate 2000s model-off-duty look, pair it with your baggy straight-leg jeans, black combat boots, and your vintage black denim jacket layered on top. If you want a slightly more skater-inspired vibe, you can also rock it with your wide-leg khaki trousers and chunky white sneakers. Both options tie right into that nostalgic Y2K aesthetic while using pieces you already own and love!
+
+  Fit card: I am completely obsessed with this butterfly baby tee I just scored on depop for only $18! It gives off the ultimate 2000s model-off-duty vibe when I style it with baggy straight-leg jeans, a vintage black denim jacket, and black combat boots.
+
+0 model calls this session, 2 served from cache
 
 ```
 
+  python app.py ask 'designer ballgown size XXS under $5'>
+
+     No listings matched "designer ballgown" in size XXS under $5. Try to use broader or different words for the item, like 'jacket' instead of 'designer bomber', or 'tee' instead of 'band shirt'
 **The three tools, tested one at a time**
 
 ```
