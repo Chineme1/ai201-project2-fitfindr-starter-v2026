@@ -109,16 +109,17 @@ $ python app.py ask '...'
 $ python -c "from tools import search_listings; print(search_listings('graphic tee', max_price=30))"
 
 ```
-
+Scored these vintage Levi's 501 jeans on depop for just $38 and I am never taking them off. They have that perfect broken-in medium wash that looks effortless with a crisp pair of white sneakers. It is giving total 90s off-duty model energy.
 ```
 $ python -c "from tools import suggest_outfit; ..."
 
 ```
-
+Nothing beats the effortless cool of a true vintage fit, especially when you score the denim of your dreams on depop for just $38. I kept it super casual today by pairing these medium wash Levi's 501 jeans with crisp white sneakers for that ultimate 90s coffee-run aesthetic.
 ```
 $ python -c "from tools import create_fit_card; ..."
 
 ```
+Scored these vintage Levi's 501 jeans in a gorgeous medium wash on depop for just $38 and I am never taking them off. Paired them with crisp white sneakers for that effortlessly cool, 90s-off-duty vibe that feels so right for casual weekend errands. Honestly, nothing beats the fit of broken-in denim found secondhand.
 
 ---
 

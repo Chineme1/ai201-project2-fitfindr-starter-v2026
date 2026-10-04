@@ -47,7 +47,7 @@ TEMPERATURE = 0.9
 # so re-running the same query twenty times while debugging costs one call.
 # Evaluation runs turn this off automatically — five tries have to be five
 # real answers. `run_eval.py` handles that for you.
-CACHE_ENABLED = os.getenv("AI201_CACHE", "1") != "0"
+CACHE_ENABLED = True
 
 
 # ─── The agent loop ──────────────────────────────────────────────────────────
